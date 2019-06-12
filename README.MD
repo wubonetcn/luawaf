@@ -1,7 +1,7 @@
 # LuaWAF
 A web application firewall(WAF) written in lua.
 ## How to use
-1. Install OpenResty
+### Install OpenResty
 ```shell
 yum update -y
 yum install readline-devel pcre-devel openssl-devel perl gcc automake autoconf libtool make epel-release redis -y
@@ -16,12 +16,12 @@ gmake install
 echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 source /etc/profile
 ```
-2. Clone this project
+### Clone this project
 ```shell
 git clone https://github.com/wubonetcn/luawaf.git
 cp luawaf /usr/local/openresty/nginx/conf/
 ```
-3. Edit `/usr/local/openresty/nginx/conf/nginx.conf`
+### Edit `/usr/local/openresty/nginx/conf/nginx.conf`
 ```
 vim /usr/local/openresty/nginx/conf/nginx.conf
 ```
@@ -150,7 +150,7 @@ http {
 
 }
 ```
-4. Run Nginx
+### Run Nginx
 ```
 nginx
 ```
