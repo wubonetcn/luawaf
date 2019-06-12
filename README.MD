@@ -1,4 +1,4 @@
-# LUAWAF
+# LuaWAF
 A web application firewall(WAF) written in lua.
 ## How to use
 1. Install OpenResty
