@@ -181,7 +181,7 @@ Enjoy it!
 
 ## Detailed Design Document
 
-Please read those post.
+Please read those posts.
 
 * [《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
 * [《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
