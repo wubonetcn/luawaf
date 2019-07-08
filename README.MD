@@ -1,7 +1,11 @@
 # LuaWAF
-A web application firewall(WAF) written in lua.
+A web application firewall(WAF) written in lua.This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
+This project fixes some bypass loopholes in the original project.
+Admittedly, firewalls are always vulnerable, but I'm constantly fixing these vulnerabilities.
+
 ## How to use
 ### Install OpenResty
+There are different ways to install OpenResty on different operating systems. Here I just take CentOS7 as an example.
 ```shell
 yum update -y
 yum install readline-devel pcre-devel openssl-devel perl gcc automake autoconf libtool make epel-release redis -y
@@ -17,6 +21,7 @@ echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 source /etc/profile
 ```
 ### Clone this project
+This project can run on any operating system with OpenResty installed, including but not limited to CentOS.
 ```shell
 git clone https://github.com/wubonetcn/luawaf.git
 cp luawaf /usr/local/openresty/nginx/conf/
@@ -155,7 +160,13 @@ http {
 nginx
 ```
 Enjoy it!
-## Fix bug
-Please read this post.
-[《openresty的unescape_uri函数处理百分号后面字符的小特性》](https://www.cnxct.com/openresty-unescape_uri-feature-to-decode-char-after-percent-sign/)
-
+## Detailed Design Document
+Please read those post.
+[《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
+[《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
+[《Web应用防火墙执行流程（执行模块）》](https://www.wubo.net.cn/security/waf_flow_chart.html)
+[《OpenResty学习笔记》](https://www.wubo.net.cn/security/learn_openresty.html)
+[《SQL注入学习笔记》](https://www.wubo.net.cn/security/learn_sql_injection.html)
+[《XSS(跨站脚本攻击)学习笔记》](https://www.wubo.net.cn/security/learn_xss.html)
+[《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
+[《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
