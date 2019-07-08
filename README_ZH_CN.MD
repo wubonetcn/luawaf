@@ -3,7 +3,7 @@
 这个项目借鉴了 [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),感谢 [神奇的魔法师](https://weibo.com/opscode).
 这个项目修复了原项目存在的一些绕过漏洞。
 
-诚然，防火墙总是存在漏洞，但我会坚持修复这些漏洞。
+诚然，防火墙总是存在漏洞，但我会坚持发现并修复这些漏洞。
 
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
 ## 如何使用
