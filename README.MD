@@ -1,5 +1,6 @@
 # LuaWAF
-A web application firewall(WAF) written in lua.This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
+A web application firewall(WAF) written in lua.
+This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
 This project fixes some bypass loopholes in the original project.
 Admittedly, firewalls are always vulnerable, but I'm constantly fixing these vulnerabilities.
 
