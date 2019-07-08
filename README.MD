@@ -3,7 +3,7 @@ A web application firewall(WAF) written in lua.
 This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
 This project fixes some bypass loopholes in the original project.
 Admittedly, firewalls are always vulnerable, but I'm constantly fixing these vulnerabilities.
-
+[中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 ## How to use
 ### Install OpenResty
 There are different ways to install OpenResty on different operating systems. Here I just take CentOS7 as an example.
@@ -163,11 +163,11 @@ nginx
 Enjoy it!
 ## Detailed Design Document
 Please read those post.
-[《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
-[《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
-[《Web应用防火墙执行流程（执行模块）》](https://www.wubo.net.cn/security/waf_flow_chart.html)
-[《OpenResty学习笔记》](https://www.wubo.net.cn/security/learn_openresty.html)
-[《SQL注入学习笔记》](https://www.wubo.net.cn/security/learn_sql_injection.html)
-[《XSS(跨站脚本攻击)学习笔记》](https://www.wubo.net.cn/security/learn_xss.html)
-[《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
-[《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
+* [《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
+* [《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
+* [《Web应用防火墙执行流程（执行模块）》](https://www.wubo.net.cn/security/waf_flow_chart.html)
+* [《OpenResty学习笔记》](https://www.wubo.net.cn/security/learn_openresty.html)
+* [《SQL注入学习笔记》](https://www.wubo.net.cn/security/learn_sql_injection.html)
+* [《XSS(跨站脚本攻击)学习笔记》](https://www.wubo.net.cn/security/learn_xss.html)
+* [《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
+* [《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
