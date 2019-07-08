@@ -1,14 +1,21 @@
 # LuaWAF
+
 A web application firewall(WAF) written in lua.
 This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
 This project fixes some bypass loopholes in the original project.
 
 Admittedly, there are always loopholes in firewalls, but I will insist on finding and fixing them.
 
+If you find a bug bypassing, please submit details in `Issues'.
+
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
+
 ## How to use
+
 ### Install OpenResty
+
 There are different ways to install OpenResty on different operating systems. Here I just take CentOS7 as an example.
+
 ```shell
 yum update -y
 yum install readline-devel pcre-devel openssl-devel perl gcc automake autoconf libtool make epel-release redis -y
@@ -23,18 +30,25 @@ gmake install
 echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 source /etc/profile
 ```
+
 ### Clone this project
+
 This project can run on any operating system with OpenResty installed, including but not limited to CentOS.
+
 ```shell
 git clone https://github.com/wubonetcn/luawaf.git
 cp luawaf /usr/local/openresty/nginx/conf/
 ```
+
 ### Edit `/usr/local/openresty/nginx/conf/nginx.conf`
-```
+
+```shell
 vim /usr/local/openresty/nginx/conf/nginx.conf
 ```
+
 /usr/local/openresty/nginx/conf/nginx.conf
-```
+
+```shell
 #user  nobody;
 worker_processes  1;
 
@@ -149,8 +163,6 @@ http {
     #        index  index.html index.htm;
     #    }
     #}
-    
-    
     lua_package_path "/usr/local/openresty/nginx/conf/luawaf/?.lua;/usr/local/openresty/lualib/?.lua;;";
     lua_shared_dict limit 10m;
     init_by_lua_file  /usr/local/openresty/nginx/conf/luawaf/init.lua; 
@@ -158,13 +170,19 @@ http {
 
 }
 ```
+
 ### Run Nginx
-```
+
+```shell
 nginx
 ```
+
 Enjoy it!
+
 ## Detailed Design Document
+
 Please read those post.
+
 * [《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
 * [《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
 * [《Web应用防火墙执行流程（执行模块）》](https://www.wubo.net.cn/security/waf_flow_chart.html)

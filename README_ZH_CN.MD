@@ -1,14 +1,21 @@
 # LuaWAF
+
 一个用Lua写的WEB应用防火墙(WAF)。
 这个项目借鉴了 [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),感谢 [神奇的魔法师](https://weibo.com/opscode).
 这个项目修复了原项目存在的一些绕过漏洞。
 
 诚然，防火墙总是存在漏洞，但我会坚持发现并修复这些漏洞。
 
+如果你发现了绕过漏洞，请在`Issues`中提交详细细节。
+
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
+
 ## 如何使用
+
 ### 安装 OpenResty
+
 在不同的操作系统上安装OpenResty有不同的方法。这里我只拿CentOS7做演示。
+
 ```shell
 yum update -y
 yum install readline-devel pcre-devel openssl-devel perl gcc automake autoconf libtool make epel-release redis -y
@@ -23,18 +30,25 @@ gmake install
 echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 source /etc/profile
 ```
+
 ### 克隆这个项目
+
 这个项目能在任何安装了OpenResty的操作系统上运行，包括但不限于CentOS。
+
 ```shell
 git clone https://github.com/wubonetcn/luawaf.git
 cp luawaf /usr/local/openresty/nginx/conf/
 ```
+
 ### 编辑 `/usr/local/openresty/nginx/conf/nginx.conf`
-```
+
+```shell
 vim /usr/local/openresty/nginx/conf/nginx.conf
 ```
+
 /usr/local/openresty/nginx/conf/nginx.conf
-```
+
+```shell
 #user  nobody;
 worker_processes  1;
 
@@ -149,8 +163,6 @@ http {
     #        index  index.html index.htm;
     #    }
     #}
-    
-    
     lua_package_path "/usr/local/openresty/nginx/conf/luawaf/?.lua;/usr/local/openresty/lualib/?.lua;;";
     lua_shared_dict limit 10m;
     init_by_lua_file  /usr/local/openresty/nginx/conf/luawaf/init.lua; 
@@ -158,13 +170,19 @@ http {
 
 }
 ```
+
 ### 运行 Nginx
-```
+
+```shell
 nginx
 ```
+
 享受它!
+
 ## 详细设计文档
+
 请阅读如下文章。
+
 * [《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
 * [《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
 * [《Web应用防火墙执行流程（执行模块）》](https://www.wubo.net.cn/security/waf_flow_chart.html)
