@@ -28,6 +28,8 @@ cd openresty-1.15.8.1
 gmake
 gmake install
 echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
+echo export LUAJIT_LIB=/usr/local/openresty/luajit/lib >> /etc/profile
+echo export LUAJIT_INC=/usr/local/openresty/luajit/include/luajit-2.1 >> /etc/profile
 source /etc/profile
 ```
 
