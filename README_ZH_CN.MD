@@ -193,3 +193,8 @@ nginx
 * [《XSS(跨站脚本攻击)学习笔记》](https://www.wubo.net.cn/security/learn_xss.html)
 * [《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
 * [《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
+
+## 更新日志
+
+* 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT
+* 2019.06.12 开源此项目

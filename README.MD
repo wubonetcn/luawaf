@@ -193,3 +193,8 @@ Please read those posts.
 * [《XSS(跨站脚本攻击)学习笔记》](https://www.wubo.net.cn/security/learn_xss.html)
 * [《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
 * [《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
+
+# Update logs
+
+* 2019.07.09 Added LUAJIT_LIB and LUAJIT_INC configuration items to support LUAJIT
+* 2019.06.12 Open Source Project
