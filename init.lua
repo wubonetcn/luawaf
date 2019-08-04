@@ -5,12 +5,11 @@ Redis存储拦截规则的优点是能够实时应用规则改动，缺点是比
 --[[
 该模块的主要作用是在nginx启动时加载变量和函数。
 --]]
-
-require("config")
+require('config')
 --------------------------------------------------------初始化
 --规则读取函数
 function read_rule(var)
-    file = io.open(rulePath .. '/' .. var, "r")
+    file = io.open(rulePath .. '/' .. var, 'r')
     if file == nil then
         return
     end
@@ -22,7 +21,7 @@ function read_rule(var)
     return (t)
 end
 local optionIsOn = function(options)
-    return options == "on" and true or false
+    return options == 'on' and true or false
 end
 -------------------------------------------------------变量集合
 whiteIpList = WhiteIpList
@@ -31,6 +30,8 @@ CCFrequency = CCFrequency
 blackFileExt = BlackFileExt
 logPath = LogPath
 rulePath = RulePath
+checkWhiteIp = optionIsOn(CheckWhiteIp)
+checkBlackIp = optionIsOn(CheckBlackIp)
 checkBlackUri = optionIsOn(CheckBlackUri)
 checkBlackPostArgs = optionIsOn(CheckBlackPostArgs)
 checkBlackCookie = optionIsOn(CheckBlackCookie)
@@ -39,12 +40,12 @@ PathInfoFix = optionIsOn(PathInfoFix)
 wafLog = optionIsOn(WafLog)
 checkCC = optionIsOn(CheckCC)
 return403Page = optionIsOn(Return403Page)
-blackUri = read_rule("blackUri")
-blackGetArgs = read_rule("blackGetArgs")
-blackUa = read_rule("blackUa")
-whiteUri = read_rule("whiteUri")
-blackPostArgs = read_rule("blackPostArgs")
-blackCookieArgs = read_rule("blackCookieArgs")
+blackUri = read_rule('blackUri')
+blackGetArgs = read_rule('blackGetArgs')
+blackUa = read_rule('blackUa')
+whiteUri = read_rule('whiteUri')
+blackPostArgs = read_rule('blackPostArgs')
+blackCookieArgs = read_rule('blackCookieArgs')
 
 -------------------------------------------------------变量集合
 
@@ -53,14 +54,14 @@ blackCookieArgs = read_rule("blackCookieArgs")
 function getClientIp()
     IP = ngx.var.remote_addr
     if IP == nil then
-        IP = "unknown"
+        IP = 'unknown'
     end
     return IP
 end
 
 --写本地文件
 function write(file, msg)
-    local fd = io.open(file, "ab")
+    local fd, err = io.open(file, 'a+b')
     if fd == nil then
         return
     end
@@ -77,11 +78,20 @@ function log(method, url, data, Reason)
         local servername = ngx.var.server_name
         local time = ngx.localtime()
         if ua then
-            line = realIp .. " [" .. time .. "] \"" .. method .. " " .. servername .. url .. "\" \"" .. data .. "\"  \"" .. ua .. "\" \"" .. Reason .. "\"\n"
+            line =
+                realIp ..
+                ' [' ..
+                    time ..
+                        '] "' ..
+                            method ..
+                                ' ' .. servername .. url .. '" "' .. data .. '"  "' .. ua .. '" "' .. Reason .. '"\n'
         else
-            line = realIp .. " [" .. time .. "] \"" .. method .. " " .. servername .. url .. "\" \"" .. data .. "\" - \"" .. Reason .. "\"\n"
+            line =
+                realIp ..
+                ' [' ..
+                    time .. '] "' .. method .. ' ' .. servername .. url .. '" "' .. data .. '" - "' .. Reason .. '"\n'
         end
-        local filename = logPath .. '/' .. servername .. "_" .. ngx.today() .. ".log"
+        local filename = logPath .. '/' .. servername .. '-' .. ngx.today() .. '.log'
         write(filename, line)
     end
 end
@@ -89,7 +99,8 @@ end
 --输出禁止访问页面
 function say_html()
     if return403Page then
-        ngx.header.content_type = "text/html"
+        ngx.header.content_type = 'application/json'
+        ngx.header.server = 'LuaWAF.com'
         ngx.say(html)
         ngx.exit(403)
     end
@@ -101,7 +112,7 @@ function fileExtCheck(ext)
     ext = string.lower(ext)
     if ext then
         for rule in pairs(items) do
-            if ngx.re.match(ext, rule, "isjo") then
+            if ngx.re.match(ext, rule, 'isjo') then
                 return true
             end
         end
@@ -110,7 +121,7 @@ function fileExtCheck(ext)
 end
 
 --工具函数，转换table的格式
-function Set (list)
+function Set(list)
     local set = {}
     for _, l in ipairs(list) do
         set[l] = true
@@ -121,8 +132,10 @@ end
 --检查POST请求中URL编码的数据
 function checkEscapedData(data)
     for _, rule in pairs(blackPostArgs) do
-        if rule ~= "" and data ~= "" and ngx.re.match(ngx.unescape_uri(ngx.unescape_uri(ngx.unescape_uri(data))), rule, "isjo") then
-
+        if
+            rule ~= '' and data ~= '' and
+                ngx.re.match(ngx.unescape_uri(ngx.unescape_uri(ngx.unescape_uri(data))), rule, 'isjo')
+         then
             return true
         end
     end
@@ -131,12 +144,12 @@ end
 
 --检查是否是multipart/form-data编码的数据
 function isMultipartFormData()
-    local header = ngx.req.get_headers()["content-type"]
+    local header = ngx.req.get_headers()['content-type']
     if not header then
         return nil
     end
 
-    if type(header) == "table" then
+    if type(header) == 'table' then
         header = header[1]
     end
 
@@ -144,14 +157,13 @@ function isMultipartFormData()
     --为何这样匹配？因为浏览器表单设置enctype="multipart/form-data"时，传任何参数或者文件都会在content-type请求头里加入一个字符串。
     --这个字符串类似content-type:multipart/form-data; boundary=--------------------------924633240806182131117927
     --enctype="x-www-form-urlencoded"时,也可以传文件或者键值对给后端，但是传文件的功能受限，单独传文件将以二进制形式传递文件，除非文件中再次声明文件名，否则文件名将被忽略，也就是说除非后端程序刻意读取发送者刻意加的文件名，这种编码不会传递文件名，主动读取属于后端白名单需求，不予保护。
-    local m = string.match(header, ";%s*boundary=([^\"]+)")
+    local m = string.match(header, ';%s*boundary=([^"]+)')
     if m then
         return m
     end
 
-    return string.match(header, ";%s*boundary=([^\",;]+)")
+    return string.match(header, ';%s*boundary=([^",;]+)')
 end
-
 
 -------------------------------------------------------工具函数
 ---
@@ -160,27 +172,31 @@ end
 -------------------------------------------------------函数集合
 --白名单IP检查
 function isWhiteIp()
-    if next(whiteIpList) ~= nil then
-        for _, ip in pairs(whiteIpList) do
-            if getClientIp() == ip then
-                return true
+    if checkWhiteIp then
+        if next(whiteIpList) ~= nil then
+            for _, ip in pairs(whiteIpList) do
+                if getClientIp() == ip then
+                    return true
+                end
             end
         end
     end
+
     return false
 end
 
 --黑名单IP检查
 function isBlackIp()
-    if next(blackIpList) ~= nil then
-        for _, ip in pairs(blackIpList) do
-            if getClientIp() == ip then
-
-                return true
-
+    if checkBlackIp then
+        if next(blackIpList) ~= nil then
+            for _, ip in pairs(blackIpList) do
+                if getClientIp() == ip then
+                    return true
+                end
             end
         end
     end
+
     return false
 end
 
@@ -204,8 +220,8 @@ function isCcAttack()
         if req then
             --CC时间阈值内访问次数大于次数阈值，就是CC攻击
             if req > CCcount then
-                return true
                 --未达到阈值，访问次数加一
+                return true
             else
                 limit:incr(token, 1)
             end
@@ -227,14 +243,14 @@ function isScanner()
     以上三个是AWVS漏洞扫描工具的自带的请求头参数，是其特有字段。可借助这种特征识别出AWVS并及时阻止扫描。
     以上三个字段有值，即发现AWVS扫描器。
     --]]
-    if type(ngx.req.get_headers()['http_Acunetix_Aspect']) ~= "nil" then
+    if type(ngx.req.get_headers()['http_Acunetix_Aspect']) ~= 'nil' then
         return true
-    elseif type(ngx.req.get_headers()['http_Acunetix-Aspect-Password']) ~= "nil" then
+    elseif type(ngx.req.get_headers()['http_Acunetix-Aspect-Password']) ~= 'nil' then
         return true
-    elseif type(ngx.req.get_headers()['http_Acunetix-Aspect-Queries']) ~= "nil" then
-        return true
+    elseif type(ngx.req.get_headers()['http_Acunetix-Aspect-Queries']) ~= 'nil' then
         --X_Scan_Memo是X-Scan漏洞扫描器的特征字段，发现其有值，即发现X-Scan漏洞扫描器。
-    elseif type(ngx.req.get_headers()['http_X_Scan_Memo']) ~= "nil" then
+        return true
+    elseif type(ngx.req.get_headers()['http_X_Scan_Memo']) ~= 'nil' then
         return true
     else
         return false
@@ -246,7 +262,7 @@ function isWhiteUri()
     if checkWhiteUri then
         if whiteUri ~= nil then
             for _, rule in pairs(whiteUri) do
-                if ngx.re.match(ngx.var.uri, rule, "isjo") then
+                if ngx.re.match(ngx.var.uri, rule, 'isjo') then
                     return true
                 end
             end
@@ -260,8 +276,7 @@ function isBlackUa()
     local ua = ngx.var.http_user_agent
     if ua ~= nil then
         for _, rule in pairs(blackUa) do
-            if rule ~= "" and ngx.re.match(ua, rule, "isjo") then
-
+            if rule ~= '' and ngx.re.match(ua, rule, 'isjo') then
                 return true
             end
         end
@@ -273,8 +288,7 @@ end
 function isBlackUri()
     if checkBlackUri then
         for _, rule in pairs(blackUri) do
-            if rule ~= "" and ngx.re.match(ngx.var.request_uri, rule, "isjo") then
-
+            if rule ~= '' and ngx.re.match(ngx.var.request_uri, rule, 'isjo') then
                 return true
             end
         end
@@ -291,15 +305,18 @@ function isBlackGetArgs()
                 local t = {}
                 for k, v in pairs(val) do
                     if v == true then
-                        v = ""
+                        v = ''
                     end
                     table.insert(t, v)
                 end
-                data = table.concat(t, " ")
+                data = table.concat(t, ' ')
             else
                 data = val
             end
-            if data and type(data) ~= "boolean" and rule ~= "" and ngx.re.match(ngx.unescape_uri(ngx.unescape_uri(ngx.unescape_uri(data))), rule, "isjo") then
+            if
+                data and type(data) ~= 'boolean' and rule ~= '' and
+                    ngx.re.match(ngx.unescape_uri(ngx.unescape_uri(ngx.unescape_uri(data))), rule, 'isjo')
+             then
                 return true
             end
         end
@@ -308,11 +325,11 @@ function isBlackGetArgs()
 end
 
 --检查Cookie中是否有恶意字符串
-function isBlackCookie()
+function isBlackCookieArgs()
     local ck = ngx.var.http_cookie
     if checkBlackCookie and ck then
         for _, rule in pairs(blackCookieArgs) do
-            if rule ~= "" and ngx.re.match(ck, rule, "isjo") then
+            if rule ~= '' and ngx.re.match(ck, rule, 'isjo') then
                 return true
             end
         end
@@ -322,22 +339,21 @@ end
 
 function isBlackPostArgs()
     if checkBlackPostArgs then
-        if ngx.req.get_method() == "POST" then
+        if ngx.req.get_method() == 'POST' then
             --如果客户端使用了multipart/form-data，则说明表单中可能有文件，进入以下检查。
             if isMultipartFormData() then
+                --如果客户端使用了x-www-form-urlencoded，一般说明请求中没有文件，只有键值对。如果是传输文件，那么文件没有文件名，只有文件二进制数据，也不排除后端程序使用这种方式传输文件，从文件二进制数据中获取文件名，这种后端主动白名单行为不在WAF保护范围内。
                 if isBlackMultipartFormData() then
                     return true
                 else
                     return false
                 end
-                --如果客户端使用了x-www-form-urlencoded，一般说明请求中没有文件，只有键值对。如果是传输文件，那么文件没有文件名，只有文件二进制数据，也不排除后端程序使用这种方式传输文件，从文件二进制数据中获取文件名，这种后端主动白名单行为不在WAF保护范围内。
             else
                 if isBlackXWwwFormUrlencodedData() then
                     return true
                 else
                     return false
                 end
-
             end
         end
     else
@@ -392,20 +408,19 @@ function isBlackMultipartFormData()
         --原作者的规则并不能匹配同一表单中上传的多个文件,试了一早上，并没有改成匹配多文件的。
         --这里遗留一个BUG，待修复。
         if m then
+            --如果POST请求中没有文件，将执行以下检查
             if fileExtCheck(m[3]) then
                 return true
             end
             checkNext = false
-            --如果POST请求中没有文件，将执行以下检查
         else
             --如果POST请求中有键值对，继续检查
-            if ngx.re.match(data, "Content-Disposition:(.+)", 'isjo') then
+            if ngx.re.match(data, 'Content-Disposition:(.+)', 'isjo') then
                 checkNext = true
             end
             if checkNext then
                 --当前POST请求的某一参数在黑名单中，即checkEscapedData(data)为true，执行then后语句，记录恶意请求信息，返回错误页面，请求截断；当前POST请求的某一参数不在黑名单中，checkEscapedData(data)为false，程序向下运行；
                 if checkEscapedData(data) then
-
                     return true
                 end
             end
@@ -433,18 +448,18 @@ function isBlackXWwwFormUrlencodedData()
     --有值，遍历检查每一个键值对
     for key, val in pairs(args) do
         --如果值时一个table或者数组，那么把其中的所有值都用,连接成一个字符串data；
-        if type(val) == "table" then
+        if type(val) == 'table' then
+            --如果值是一个字符串，那么就执行检查。
             --三维数组跳过检测，这里遗留一个BUG，以后优化。
-            if type(val[1]) == "table" then
+            if type(val[1]) == 'table' then
                 return false
             end
-            data = table.concat(val, ", ")
-            --如果值是一个字符串，那么就执行检查。
+            data = table.concat(val, ', ')
         else
             data = val
         end
         --先检查value再检查key
-        if data and type(data) ~= "boolean" then
+        if data and type(data) ~= 'boolean' then
             if checkEscapedData(data) then
                 return true
             end
@@ -454,11 +469,4 @@ function isBlackXWwwFormUrlencodedData()
             return false
         end
     end
-
 end
-
-
-
-
-
-

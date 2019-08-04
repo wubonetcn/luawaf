@@ -8,6 +8,9 @@
 
 如果你发现了绕过漏洞，请在`Issues`中提交详细细节。
 
+项目官网： [luawaf.com](https://luawaf.com)
+项目邮箱： [admin@luawaf.com](mailto:admin@luawaf.com)
+
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
 
 ## 如何使用
@@ -31,6 +34,9 @@ echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 echo export LUAJIT_LIB=/usr/local/openresty/luajit/lib >> /etc/profile
 echo export LUAJIT_INC=/usr/local/openresty/luajit/include/luajit-2.1 >> /etc/profile
 source /etc/profile
+
+mkdir /usr/local/openresty/nginx/logs/luawaf
+chown nobody /usr/local/openresty/nginx/logs/luawaf
 ```
 
 ### 克隆这个项目
@@ -51,7 +57,7 @@ vim /usr/local/openresty/nginx/conf/nginx.conf
 /usr/local/openresty/nginx/conf/nginx.conf
 
 ```shell
-#user  nobody;
+user  nobody;
 worker_processes  1;
 
 error_log  logs/error.log;
@@ -196,5 +202,6 @@ nginx
 
 ## 更新日志
 
-* 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT
-* 2019.06.12 开源此项目
+* 2019.08.04 修复了不能正常记录日志的问题。新增了记录恶意cookies的功能。新增了白名单IP和黑名单IP的打开开关。为此项目搭建了简易官网`luawaf.com`。
+* 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT。
+* 2019.06.12 开源此项目。

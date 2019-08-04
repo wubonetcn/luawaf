@@ -8,6 +8,9 @@ Admittedly, there are always loopholes in firewalls, but I will insist on findin
 
 If you find a bug bypassing, please submit details in `Issues'.
 
+Project Official Website: [luawaf.com](https://luawaf.com)
+Project mailbox: [admin@luawaf.com](mailto:admin@luawaf.com)
+
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
 ## How to use
@@ -31,6 +34,9 @@ echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 echo export LUAJIT_LIB=/usr/local/openresty/luajit/lib >> /etc/profile
 echo export LUAJIT_INC=/usr/local/openresty/luajit/include/luajit-2.1 >> /etc/profile
 source /etc/profile
+
+mkdir /usr/local/openresty/nginx/logs/luawaf
+chown nobody /usr/local/openresty/nginx/logs/luawaf
 ```
 
 ### Clone this project
@@ -51,7 +57,7 @@ vim /usr/local/openresty/nginx/conf/nginx.conf
 /usr/local/openresty/nginx/conf/nginx.conf
 
 ```shell
-#user  nobody;
+user  nobody;
 worker_processes  1;
 
 error_log  logs/error.log;
@@ -196,5 +202,6 @@ Please read those posts.
 
 # Update logs
 
-* 2019.07.09 Added LUAJIT_LIB and LUAJIT_INC configuration items to support LUAJIT
-* 2019.06.12 Open Source Project
+* 2019.08.04 Fixed a problem that the log could not be logged properly. Added the ability to record malicious cookies. New open switches for whitelist IP and blacklist IP have been added. For this project, a simple official website `luawaf.com` has been set up.
+* 2019.07.09 Added LUAJIT_LIB and LUAJIT_INC configuration items to support LUAJIT.
+* 2019.06.12 Open Source Project.

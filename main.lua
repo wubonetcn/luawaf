@@ -11,19 +11,19 @@ elseif isScanner() then
     ngx.exit(444)
 elseif isWhiteUri() then
 elseif isBlackUa() then
-    log('UA', ngx.var.request_uri, "-", "当前UA在黑名单中")
+    log('UA', ngx.var.request_uri, '-', 'BlackUa')
     say_html()
 elseif isBlackUri() then
-    log('GET', ngx.var.request_uri, "-", "当前请求的URI在黑名单中")
+    log('GET', ngx.var.request_uri, '-', 'BlackUri')
     say_html()
 elseif isBlackGetArgs() then
-    log('GET', ngx.var.request_uri, "-", "当前GET请求的某一参数在黑名单中")
+    log('GET', ngx.var.request_uri, '-', 'BlackGetArgs')
     say_html()
-elseif isBlackCookie() then
-    log('Cookie', ngx.var.request_uri, "-", "当前cookie中的某一参数在黑名单中")
+elseif isBlackCookieArgs() then
+    log('Cookie', ngx.var.request_uri, ngx.var.http_cookie, 'BlackCookieArgs')
     say_html()
 elseif isBlackPostArgs() then
-    log('POST', ngx.var.request_uri, data, "当前POST请求的某一参数在黑名单中")
+    log('POST', ngx.var.request_uri, data, 'BlackPostArgs')
     say_html()
 else
     return
