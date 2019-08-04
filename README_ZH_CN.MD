@@ -1,7 +1,7 @@
 # LuaWAF
 
 一个用Lua写的WEB应用防火墙(WAF)。
-这个项目借鉴了 [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),感谢 [神奇的魔法师](https://weibo.com/opscode).
+这个项目借鉴了 [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf)。
 这个项目修复了原项目存在的一些绕过漏洞。
 
 诚然，防火墙总是存在漏洞，但我会坚持发现并修复这些漏洞。
