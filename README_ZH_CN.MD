@@ -9,6 +9,7 @@
 如果你发现了绕过漏洞，请在`Issues`中提交详细细节。
 
 项目官网： [luawaf.com](https://luawaf.com)
+
 项目邮箱： [admin@luawaf.com](mailto:admin@luawaf.com)
 
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)

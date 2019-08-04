@@ -9,7 +9,8 @@ Admittedly, there are always loopholes in firewalls, but I will insist on findin
 If you find a bug bypassing, please submit details in `Issues'.
 
 Project Official Website: [luawaf.com](https://luawaf.com)
-Project mailbox: [admin@luawaf.com](mailto:admin@luawaf.com)
+
+Project Mailbox: [admin@luawaf.com](mailto:admin@luawaf.com)
 
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
