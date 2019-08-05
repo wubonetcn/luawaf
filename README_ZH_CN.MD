@@ -12,7 +12,7 @@
 
 项目邮箱： [admin@luawaf.com](mailto:admin@luawaf.com)
 
-QQ群： LuaWAF交流群 618740528
+LuaWAF交流QQ群: 618740528
 
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
 
