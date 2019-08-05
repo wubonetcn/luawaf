@@ -12,6 +12,8 @@ Project Official Website: [luawaf.com](https://luawaf.com)
 
 Project Mailbox: [admin@luawaf.com](mailto:admin@luawaf.com)
 
+QQ群： LuaWAF交流群 618740528
+
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
 ## How to use
