@@ -2,6 +2,7 @@
 遗留BUG：
 1. [《openresty的unescape_uri函数处理百分号后面字符的小特性》](https://www.cnxct.com/openresty-unescape_uri-feature-to-decode-char-after-percent-sign/) 未解决 可以按照该篇文章中的方法重新编译OpenResty解决。
 ]]
+setGlobalHeader()
 if isWhiteIp() then
 elseif isBlackIp() then
     ngx.exit(403)

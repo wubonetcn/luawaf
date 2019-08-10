@@ -106,6 +106,10 @@ function say_html()
     end
 end
 
+--设置header
+function setGlobalHeader()
+    ngx.header.server = 'LuaWAF.com'
+end
 --检查黑名单文件后缀名
 function fileExtCheck(ext)
     local items = Set(blackFileExt)
