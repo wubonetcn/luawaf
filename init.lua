@@ -109,6 +109,7 @@ end
 --设置header
 function setGlobalHeader()
     ngx.header.server = 'LuaWAF.com'
+    ngx.header["X-Powered-By"] = 'Protected by LuaWAF.com'
 end
 --检查黑名单文件后缀名
 function fileExtCheck(ext)
