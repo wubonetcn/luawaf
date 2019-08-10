@@ -16,7 +16,7 @@ LuaWAF交流QQ群: 618740528
 
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
-## Characteristics
+## Features
 * Sensitive information protection. Hide server information, server field. Hide server program information, x-powered-by field.
 * IP Black and White List
 * URI Black and White List
