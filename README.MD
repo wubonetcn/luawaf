@@ -16,6 +16,18 @@ LuaWAF交流QQ群: 618740528
 
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
+## Characteristics
+* Sensitive information protection. Hide server information, server field. Hide server program information, x-powered-by field.
+* IP Black and White List
+* URI Black and White List
+* XSS protection
+* SQL Injection Protection
+* Path Crossing Protection
+
+## Development Plan
+* Support API protection (on schedule)
+* Configurable Depth POST Detection (on schedule)
+
 ## How to use
 
 ### Install OpenResty
