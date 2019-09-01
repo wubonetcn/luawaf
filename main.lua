@@ -23,9 +23,12 @@ elseif isBlackGetArgs() then
 elseif isBlackCookieArgs() then
     log('Cookie', ngx.var.request_uri, ngx.var.http_cookie, 'BlackCookieArgs')
     say_html()
-elseif isBlackPostArgs() then
-    log('POST', ngx.var.request_uri, data, 'BlackPostArgs')
-    say_html()
 else
-    return
+    local post_status, post_data = isBlackPostArgs()
+    if post_status then
+        log('POST', ngx.var.request_uri, post_data, 'BlackPostArgs')
+        say_html()
+    else
+        return
+    end
 end

@@ -14,6 +14,8 @@ Project Mailbox: [admin@luawaf.com](mailto:admin@luawaf.com)
 
 LuaWAF交流QQ群: 618740528
 
+The current version will save all POST content to the log file and update the log save switch in a few days.
+
 [中文版README](https://github.com/wubonetcn/luawaf/blob/master/README_ZH_CN.MD)
 
 ## Features
@@ -23,6 +25,8 @@ LuaWAF交流QQ群: 618740528
 * XSS protection
 * SQL Injection Protection
 * Path Crossing Protection
+* Upload File Content Check
+* Base64 Coded Content Check
 
 ## Development Plan
 * Support API protection (on schedule)
@@ -217,6 +221,7 @@ Please read those posts.
 
 # Update logs
 
+* In 2019.09.01, POST checking was rewritten to support file content checking, picture horse checking and Base64 encoding checking. Fixed the bug that POST could not log normally.
 * 2019.08.04 Fixed a problem that the log could not be logged properly. Added the ability to record malicious cookies. New open switches for whitelist IP and blacklist IP have been added. For this project, a simple official website `luawaf.com` has been set up.
 * 2019.07.09 Added LUAJIT_LIB and LUAJIT_INC configuration items to support LUAJIT.
 * 2019.06.12 Open Source Project.

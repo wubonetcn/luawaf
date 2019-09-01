@@ -14,6 +14,8 @@
 
 LuaWAF交流QQ群: 618740528
 
+当前版本会保存所有POST内容到日志文件，过几天再更新日志保存开关。
+
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
 
 ## 特性
@@ -23,10 +25,12 @@ LuaWAF交流QQ群: 618740528
 * XSS防护
 * SQL注入防护
 * 路径穿越防护
+* 上传文件内容检查
+* base64编码内容检查
 
 ## 开发计划
 * 支持API防护（列入日程）
-* 可配置深度POST检测（列入日程）
+* 可配置深度POST检测（已完成，待优化）
 
 
 ## 如何使用
@@ -135,6 +139,7 @@ nginx
 
 ## 更新日志
 
+* 2019.09.01 重写了POST检查，支持检查文件内容，支持图片马的检查，支持了base64编码的检查。修复了POST不能正常进行日志记录的bug。
 * 2019.08.04 修复了不能正常记录日志的问题。新增了记录恶意cookies的功能。新增了白名单IP和黑名单IP的打开开关。为此项目搭建了简易官网`luawaf.com`。
 * 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT。
 * 2019.06.12 开源此项目。
