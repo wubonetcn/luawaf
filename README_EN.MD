@@ -1,20 +1,51 @@
 # LuaWAF
 
-一个用Lua写的WEB应用防火墙(WAF)。
-这个项目借鉴了 [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),感谢 [神奇的魔法师](https://weibo.com/opscode).
-这个项目修复了原项目存在的一些绕过漏洞。
+A web application firewall(WAF) written in lua.
+This project fixes some bypass loopholes in the original project.
 
-诚然，防火墙总是存在漏洞，但我会坚持发现并修复这些漏洞。
+New versions will be updated.
 
-如果你发现了绕过漏洞，请在`Issues`中提交详细细节。
+If you find a bug bypassing, please submit details in `Issues'.
 
-[English version README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
+[中文版README](https://github.com/wubonetcn/luawaf/blob/master/README.MD)
 
-## 如何使用
+## New version
+Over the past year, I have updated this WAF intermittently. At present, I have completed the following work. When I have time, I will continue to upload the code:
+1. Access control function: IP black and white list control, regional black and white list control (national and provincial), CC defense at URI level
+2. Detect regular upgrade, support more updated attack type detection protection
+3. Try to change to distributed version
+4. AI engine test, the effect is not ideal.
+5. The central control node of go language version and the front-end control center of Vue version are newly written
+6. SSL configuration
+7. Testability edge function (immature)
+8. Improve the recognition rules of scanner and robot
+9. Added the function of automatic blocking malicious IP
+## Overview of the new edition
+### Home page
+![首页](https://s1.ax1x.com/2020/09/09/w3g8G6.png)
+### WAF configuration page
+![WAF配置页面](https://s1.ax1x.com/2020/09/09/w3g5iq.png)
+### CC protection rules page
+![CC防护规则页面](https://s1.ax1x.com/2020/09/09/w32ZFI.png)
+### Access control page
+![访问控制页面](https://s1.ax1x.com/2020/09/09/w32YYq.png)
 
-### 安装 OpenResty
+## New version directory
+```
+/
+    luawaf           -waf engine(lua)
+    webFrontend      -front end(vue)
+    webBackend       -backend(Go)
+```
 
-在不同的操作系统上安装OpenResty有不同的方法。这里我只拿CentOS7做演示。
+## Old version
+The following content is the content of the old version, and the new version will be updated.
+
+## How to use
+
+### Install OpenResty
+
+There are different ways to install OpenResty on different operating systems. Here I just take CentOS7 as an example.
 
 ```shell
 yum update -y
@@ -33,16 +64,16 @@ echo export LUAJIT_INC=/usr/local/openresty/luajit/include/luajit-2.1 >> /etc/pr
 source /etc/profile
 ```
 
-### 克隆这个项目
+### Clone this project
 
-这个项目能在任何安装了OpenResty的操作系统上运行，包括但不限于CentOS。
+This project can run on any operating system with OpenResty installed, including but not limited to CentOS.
 
 ```shell
 git clone https://github.com/wubonetcn/luawaf.git
 cp luawaf /usr/local/openresty/nginx/conf/
 ```
 
-### 编辑 `/usr/local/openresty/nginx/conf/nginx.conf`
+### Edit `/usr/local/openresty/nginx/conf/nginx.conf`
 
 ```shell
 vim /usr/local/openresty/nginx/conf/nginx.conf
@@ -173,17 +204,17 @@ http {
 }
 ```
 
-### 运行 Nginx
+### Run Nginx
 
 ```shell
 nginx
 ```
 
-享受它!
+Enjoy it!
 
-## 详细设计文档
+## Detailed Design Document
 
-请阅读如下文章。
+Please read those posts.
 
 * [《基于OpenResty的WAF构建笔记》](https://www.wubo.net.cn/security/dev_waf.html)
 * [《使用wrk2压力测试WAF》](https://www.wubo.net.cn/security/wrk2_test_waf.html)
@@ -194,7 +225,9 @@ nginx
 * [《Lua学习笔记》](https://www.wubo.net.cn/security/learn_lua.html)
 * [《扫描器扫描、路径穿越攻击、CC攻击特征学习笔记》](https://www.wubo.net.cn/security/learn_other_attacks.html)
 
-## 更新日志
+This project draws lessons from [loveshell/ngx_lua_waf](https://github.com/loveshell/ngx_lua_waf),Thank [神奇的魔法师](https://weibo.com/opscode).
 
-* 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT
-* 2019.06.12 开源此项目
+# Update logs
+
+* 2019.07.09 Added LUAJIT_LIB and LUAJIT_INC configuration items to support LUAJIT
+* 2019.06.12 Open Source Project

@@ -1,0 +1,53 @@
+<template>
+  <div class="header-bar">
+    <sider-trigger :collapsed="collapsed" icon="md-menu" @on-change="handleCollpasedChange"></sider-trigger>
+    <div class="header-v-center" style="margin-left: 20px;">
+      <Dropdown>
+        <Button type="primary">
+          demo.com
+          <Icon type="ios-arrow-down"></Icon>
+        </Button>
+        <DropdownMenu slot="list">
+          <DropdownItem>a.com</DropdownItem>
+          <DropdownItem>b.com</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
+    <custom-bread-crumb show-icon style="margin-left: 20px;" :fontSize="13" :list="breadCrumbList"></custom-bread-crumb>
+    <div class="custom-content-con">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+<script>
+import siderTrigger from './sider-trigger'
+import customBreadCrumb from './custom-bread-crumb'
+import './header-bar.less'
+
+export default {
+  name: 'HeaderBar',
+  components: {
+    siderTrigger,
+    customBreadCrumb
+  },
+  props: {
+    collapsed: Boolean
+  },
+  computed: {
+    breadCrumbList () {
+      return this.$store.state.app.breadCrumbList
+    }
+  },
+  methods: {
+    handleCollpasedChange (state) {
+      this.$emit('on-coll-change', state)
+    }
+  }
+}
+</script>
+<style>
+  .header-v-center {
+    display: inline-block;
+    vertical-align: top;
+  }
+</style>
