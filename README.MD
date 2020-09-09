@@ -6,6 +6,7 @@
 
 如果你发现了绕过漏洞，请在`Issues`中提交详细细节。
 
+
 [English version README](https://github.com/wubonetcn/luawaf/blob/master/README_EN.MD)
 
 ## 全新版本
@@ -19,6 +20,9 @@
 7. 测试性的边缘函数（不成熟的）
 8. 完善了扫描器、机器人识别规则
 9. 新增了全自动封禁恶意IP功能
+
+## How to use
+>>>>>>> 8e785d7d61e86463700d284f05c3baf70f6eb6a5
 
 ## 新版本目录
 ```
@@ -62,6 +66,9 @@ echo export PATH=$PATH:/usr/local/openresty/nginx/sbin >> /etc/profile
 echo export LUAJIT_LIB=/usr/local/openresty/luajit/lib >> /etc/profile
 echo export LUAJIT_INC=/usr/local/openresty/luajit/include/luajit-2.1 >> /etc/profile
 source /etc/profile
+
+mkdir /usr/local/openresty/nginx/logs/luawaf
+chown nobody /usr/local/openresty/nginx/logs/luawaf
 ```
 
 ### 克隆这个项目
@@ -82,7 +89,7 @@ vim /usr/local/openresty/nginx/conf/nginx.conf
 /usr/local/openresty/nginx/conf/nginx.conf
 
 ```shell
-#user  nobody;
+user  nobody;
 worker_processes  1;
 
 error_log  logs/error.log;
@@ -232,4 +239,3 @@ nginx
 
 * 2019.07.09 增加了LUAJIT_LIB与LUAJIT_INC配置项以支持LUAJIT
 * 2019.06.12 开源此项目
-
