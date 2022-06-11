@@ -6,7 +6,7 @@ A web application firewall(WAF) written in lua.
 yum update -y
 yum install readline-devel pcre-devel openssl-devel perl gcc automake autoconf libtool make epel-release redis -y
 cd Downloads
-wgethttps://openresty.org/download/openresty-1.15.8.1.tar.gz
+wget https://openresty.org/download/openresty-1.15.8.1.tar.gz
 tar -xzvf openresty-1.15.8.1.tar.gz
 cd openresty-1.15.8.1
 ./configure --with-luajit\
